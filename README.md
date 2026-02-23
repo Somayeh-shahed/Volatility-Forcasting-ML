@@ -1,37 +1,54 @@
-# Volatility-Forcasting-ML
+# 📊 Financial Volatility Forecasting: From Baseline to "Lag-Killer"
+
+This repository showcases the evolution of a Machine Learning pipeline designed to predict market risk (Volatility) in financial assets like Gold. The project transitions from a basic predictive model to an advanced, physics-inspired engine that eliminates time-series lagging.
+
+## 📌 Project Overview
+
+The goal of this project is to forecast EWMA Volatility. In financial markets, predicting when the market will become unstable is as crucial as predicting price direction, especially for dynamic risk management and stop-loss optimization.
+
+## 📂 Repository Structure
+
+1. tse-volatility-forcasting-v1
+
+* Description: My initial approach using standard historical lags.
+
+* Status: ⚠️ Legacy.
+
+* Key Issue: Suffered from a 1-day lag effect, where the model merely echoed the previous day's volatility instead of anticipating the next move.
+
+2. tse-volatility-forcasting-v2
+
+ Description: The production-ready version with advanced feature engineering.
+
+ Improvements:
+
+* Introduced Velocity and Acceleration features to capture momentum.
+
+* Shifted target to Volatility Differentials (\Delta) to force the model to learn changes, not just levels.
+
+* Performance: Successfully eliminated the lag, showing real-time responsiveness to market shocks (e.g., the 10% gold price drop in Feb 2026).
+
+## 🚀 Key Technical Features
+
+* Hybrid Ensemble: Combines Linear Regression (for trend momentum) and XGBoost (for non-linear shock detection).
+
+* Advanced Feature Engineering:
+
+* vol_velocity: Rate of change in risk.
+
+* vol_acceleration: The "shaping" of the volatility curve.
 
 
-This project implements an advanced Machine Learning pipeline to forecast Financial Volatility (EWMA). Unlike standard models that suffer from systemic prediction lag, this repository introduces a physics-inspired feature engineering method to detect market shifts in real-time.
+## 📈 Real-World Application
 
-## 🎯 The Core Problem: The Lag Effect 
+ It helps traders:
 
-Most time-series models (like basic XGBoost or RNNs) tend to act as "echoes"—they simply repeat yesterday's value as today's prediction. In financial markets, this 1-day lag can be catastrophic for risk management.
+* Set Dynamic Stop-Losses based on predicted risk.
 
-## 🚀 The Solution: Differential Engineering
+* Reduce position sizes during high-acceleration volatility periods.
 
-To solve this, I implemented Velocity and Acceleration features:
-* Volatility Velocity: The first derivative of risk change (V = Vol_{t-1} - Vol_{t-2}).
-* Volatility Acceleration: The second derivative, capturing how fast the risk is gaining momentum.
+* Identify "Calm before the storm" scenarios in asset prices.
 
-By shifting the target from absolute values to Differentials (\Delta Volatility), the model learns to predict the movement of risk rather than just its level.
+## 👨‍💻 Author
 
-## 🛠 Tech Stack
-
-* Python 3.x
-* pytse_client
-* XGBoost Regressor: For capturing non-linear market shocks.
-* Linear Regression: Used as a momentum-based baseline.
-* Pandas & NumPy: For high-performance data manipulation.
-* Matplotlib: For dual-model visualization.
-
-## 📊 Key Results
-
-* Lag Elimination: As shown in the visualizations, the model now anticipates spikes simultaneously with the actual market movements.
-* Precision: Achieved a significantly low RMSE (~0.0055) during high-volatility periods (e.g., gold price shocks).
-* Use Case: Ideal for Dynamic Stop-Loss placement and position sizing in one-way markets (like the Tehran Stock Exchange).
-
-## 📝 How to Use
-
-1. Clone the repo: git clone https://github.com/YOUR_USERNAME/Volatility-ML-Forecasting.git
-2. Install dependencies: pip install pandas xgboost scikit-learn jdatetime
-3. Run the main script: python main.py
+Developed as a comprehensive study on Financial Data Science and Time-Series Forecasting.
